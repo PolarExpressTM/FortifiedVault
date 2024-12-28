@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  fortified-db:
+    image: mysql:5.7
+    container_name: fortified-db
+    networks:
+      - core
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'fortifiedvault'
+      MYSQL_USER: 'root'
+      MYSQL_PASSWORD: 'root'
+      MYSQL_ROOT_PASSWORD: 'root'
+    ports:
+      - '3306:3306'
+    expose:
+      - '3306'
+  fortified-vault:
+    container_name: fortified-vault
+    networks:
+      - core
+    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/app
+      - /app/dist
+      - /app/node_modules
+    ports:
+      - 3000:3000
+    env_file:
+      - ./.env
+    depends_on:
+      - fortified-db
+
+networks:
+  core:
+    external: true
