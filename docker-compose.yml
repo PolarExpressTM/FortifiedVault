@@ -9,9 +9,9 @@ services:
     restart: always
     environment:
       MYSQL_DATABASE: 'fortifiedvault'
-      MYSQL_USER: 'root'
-      MYSQL_PASSWORD: 'root'
-      MYSQL_ROOT_PASSWORD: 'root'
+      MYSQL_USER: 'fortifiedvault'
+      MYSQL_PASSWORD: 'fortifiedvault'
+      MYSQL_ROOT_PASSWORD: 'fortifiedvault'
     ports:
       - '3306:3306'
     expose:
